@@ -1,5 +1,9 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
+from pathlib import Path
+
+# folder backend/
+BASE_DIR = Path(__file__).resolve().parent
 
 class Settings(BaseSettings):
     environment: str = "dev"
@@ -16,7 +20,7 @@ class Settings(BaseSettings):
     access_token_expire_minutes: int = 60
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+         env_file=BASE_DIR / ".env",
         env_file_encoding="utf-8",
     )
 

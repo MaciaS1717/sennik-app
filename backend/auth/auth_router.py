@@ -33,7 +33,7 @@ def register_user(data: UserCreate, db: Session = Depends(get_session)):
             detail="Użytkownik z takim e-mailem już istnieje",
         )
 
-    user = create_user(db, data.email, data.password)
+    user = create_user(db, data)
     return user
 
 
