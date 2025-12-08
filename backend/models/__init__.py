@@ -1,4 +1,4 @@
 from .user import User
-from .entry import Entry
+from .daily_log import DailyLog
 
-__all__ = ["User", "Entry"]
+__all__ = ["User", "DailyLog"]
