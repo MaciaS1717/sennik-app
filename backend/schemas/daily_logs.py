@@ -20,10 +20,12 @@ class DailyLogCreateMorning(SQLModel):
 # Schemat: WIECZORNY RAPORT
 
 class DailyLogUpdateEvening(SQLModel):
+    date: date #dzien D
+
     day_rating: Optional[int] = None  # 1–10 (TARGET2)
     stress_level: Optional[int] = None
-    coffee_after_16: Optional[bool] = None
-    alcohol_after_18: Optional[bool] = None
+    coffee_last_6h: Optional[bool] = None
+    alcohol_last_4h: Optional[bool] = None
     screens_last_hour: Optional[str] = None  # "low" | "medium" | "high"
     nap_type: Optional[str] = None  # "none" | "short" | "medium" | "long"
 
@@ -45,8 +47,8 @@ class DailyLogRead(SQLModel):
 
     day_rating: Optional[int]
     stress_level: Optional[int]
-    coffee_after_16: Optional[bool]
-    alcohol_after_18: Optional[bool]
+    coffee_last_6h: Optional[bool]
+    alcohol_last_4h: Optional[bool]
     screens_last_hour: Optional[str]
     nap_type: Optional[str]
 
@@ -55,3 +57,11 @@ class DailyLogRead(SQLModel):
 
     created_at: datetime
     updated_at: datetime
+
+class DailyLogEveningResponse(SQLModel):
+    """Odpowiedź dla raportu wieczornego:
+    - today: log dla dnia D (ocena dnia)
+    - tomorrow: log dla dnia D+1 (nawyki, które wpłyną na kolejny sen)
+    """
+    today: DailyLogRead
+    tomorrow: DailyLogRead
