@@ -1,0 +1,10 @@
+.loginPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.loginCard {
+  width: 360px;
+  text-align: left;
+}
