@@ -35,32 +35,30 @@ export default function LoginPage() {
       <h1>Logowanie</h1>
 
       <form onSubmit={onSubmit}>
-        <label>
+        <label className="loginField">
           Email
-          <input
+          <input className="loginControl"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
-            style={{ width: "100%", padding: 8, marginTop: 4, marginBottom: 12 }}
           />
         </label>
 
-        <label>
+        <label className="loginField">
           Hasło
-          <input
+          <input className="loginControl"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             autoComplete="current-password"
-            style={{ width: "100%", padding: 8, marginTop: 4, marginBottom: 12 }}
           />
         </label>
 
-        <button type="submit" disabled={auth.status === "loading"} style={{ width: "100%" }}>
+        <button className="loginButton" type="submit" disabled={auth.status === "loading"}>
           Zaloguj
         </button>
 
-        {error && <p style={{ color: "crimson" }}>{error}</p>}
+        {error && <p className="loginError">{error}</p>}
       </form>
 
       <p>

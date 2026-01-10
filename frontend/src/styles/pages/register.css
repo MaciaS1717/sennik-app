@@ -1,29 +1,29 @@
-.loginPage {
+.registerPage {
   min-height: 100vh;
   display: grid;
   place-items: center;
 }
 
-.loginCard {
+.registerCard {
   width: 360px;
   text-align: left;
 }
 
-.loginField {
+.registerField {
   display: block;
   margin-bottom: 12px;
 }
 
-.loginControl {
+.registerControl {
   width: 100%;
   padding: 8px;
   margin-top: 4px;
 }
 
-.loginButton {
+.registerButton {
   width: 100%;
 }
 
-.loginError {
+.registerError {
   color: crimson;
 }
