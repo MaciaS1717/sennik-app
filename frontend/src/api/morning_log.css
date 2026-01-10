@@ -1,0 +1,74 @@
+.morningLogPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: #f6f7fb;
+}
+
+.morningLogCard {
+  width: min(560px, 100%);
+  padding: 20px;
+  border: 1px solid #e6e8ef;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  text-align: left;
+}
+
+.morningLogCard h1 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.morningLogField {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.morningLogControl {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  font: inherit;
+}
+
+.morningLogControl:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.morningLogButton {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid #1d4ed8;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.morningLogButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.morningLogError {
+  margin-top: 12px;
+  color: crimson;
+}
+
+.morningLogSuccess {
+  margin-top: 12px;
+  color: #15803d;
+}
