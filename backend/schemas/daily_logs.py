@@ -38,12 +38,12 @@ class DailyLogRead(SQLModel):
     user_id: int
     date: date
 
-    sleep_start: datetime
-    sleep_latency_extra: int
-    sleep_end: datetime
-    sleep_quality: int
-    night_awakenings: int
-    morning_energy: int
+    sleep_start: Optional[datetime]
+    sleep_latency_extra: Optional[int]
+    sleep_end: Optional[datetime]
+    sleep_quality: Optional[int]
+    night_awakenings: Optional[int]
+    morning_energy: Optional[int]
 
     day_rating: Optional[int]
     stress_level: Optional[int]

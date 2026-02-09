@@ -7,6 +7,9 @@ export default function HomePage() {
       <p>
         <Link to="/morning">Dodaj poranny raport</Link>
       </p>
+      <p>
+        <Link to="/evening">Dodaj wieczorny raport</Link>
+      </p>
     </div>
   )
 }

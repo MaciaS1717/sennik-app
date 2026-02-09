@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage.tsx"
 import RegisterPage from "./pages/RegisterPage.tsx"
 import MorningLogPage from "./pages/MorningLogPage.tsx"
 import { RequireAuth } from "./auth/RequireAuth.tsx"
+import EveningLogPage from "./pages/EveningLogPage.tsx"
 
 export default function App() {
   return (
@@ -21,6 +22,14 @@ export default function App() {
         element={
           <RequireAuth>
             <MorningLogPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/evening"
+        element={
+          <RequireAuth>
+            <EveningLogPage />
           </RequireAuth>
         }
       />

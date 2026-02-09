@@ -1,6 +1,6 @@
 ﻿import { useState, type FormEvent } from "react"
 import { apiSubmitMorningLog } from "../api/log"
-import "../api/morning_log.css"
+import "../styles/pages/morning_log.css"
 
 export default function MorningLogPage() {
   const [date, setDate] = useState("")
