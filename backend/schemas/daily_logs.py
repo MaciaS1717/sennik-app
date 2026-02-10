@@ -1,7 +1,19 @@
 from datetime import date, datetime
 from typing import Optional
 from sqlmodel import SQLModel
+from enum import Enum
+from sqlmodel import Field
 
+class ScreensLastHour(str, Enum):
+    low = "low"
+    medium = "medium"
+    high = "high"
+
+class NapType(str, Enum):
+    none = "none"
+    short = "short"
+    medium = "medium"
+    long = "long"
 
 # Schemat: PORANNY RAPORT
 
@@ -9,12 +21,12 @@ class DailyLogCreateMorning(SQLModel):
     date: date
 
     sleep_start: datetime
-    sleep_latency_extra: int
+    sleep_latency_extra: int = Field(ge=0, le=180)
     sleep_end: datetime
 
-    sleep_quality: int  # 1–10
-    night_awakenings: int
-    morning_energy: int  # TARGET1
+    sleep_quality: int  = Field(ge=1, le=10)  # TARGET1
+    night_awakenings: int = Field(ge=0, le=10)
+    morning_energy: int  = Field(ge=1, le=10)  # TARGET1
 
 
 # Schemat: WIECZORNY RAPORT
@@ -22,12 +34,12 @@ class DailyLogCreateMorning(SQLModel):
 class DailyLogUpdateEvening(SQLModel):
     date: date #dzien D
 
-    day_rating: Optional[int] = None  # 1–10 (TARGET2)
-    stress_level: Optional[int] = None
+    day_rating: Optional[int] =  Field(default=None, ge=1, le=10)  # 1–10 (TARGET2)
+    stress_level: Optional[int] = Field(default=None, ge=1, le=10)
     coffee_last_6h: Optional[bool] = None
     alcohol_last_4h: Optional[bool] = None
-    screens_last_hour: Optional[str] = None  # "low" | "medium" | "high"
-    nap_type: Optional[str] = None  # "none" | "short" | "medium" | "long"
+    screens_last_hour: Optional[ScreensLastHour] = None
+    nap_type: Optional[NapType] = None
 
 
 
@@ -49,8 +61,8 @@ class DailyLogRead(SQLModel):
     stress_level: Optional[int]
     coffee_last_6h: Optional[bool]
     alcohol_last_4h: Optional[bool]
-    screens_last_hour: Optional[str]
-    nap_type: Optional[str]
+    screens_last_hour: Optional[ScreensLastHour]
+    nap_type: Optional[NapType]
 
     sleep_duration: Optional[float]
     day_score: Optional[float]

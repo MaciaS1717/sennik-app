@@ -1,8 +1,10 @@
 ﻿import { useState, type FormEvent } from "react"
 import { apiSubmitMorningLog } from "../api/log"
+import { useNavigate } from "react-router-dom"
 import "../styles/pages/morning_log.css"
 
 export default function MorningLogPage() {
+  const navigate = useNavigate()
   const [date, setDate] = useState("")
   const [sleepStart, setSleepStart] = useState("")
   const [sleepLatencyExtra, setSleepLatencyExtra] = useState(0)
@@ -15,24 +17,38 @@ export default function MorningLogPage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
 
-    //walidacja
-    const sleepEndDay = sleepEnd.split("T")[0] // "YYYY-MM-DD"
-    
-    
-    if(sleepStart > sleepEnd) {
-        setError("Godzina rozpoczęcia snu nie może być późniejsza niż godzina zakończenia snu.")
-        return
-    }
-    if (date !== sleepEndDay) {
-        setError("Data wpisu musi być taka sama jak data z godziny zakończenia snu (sleep_end).")
-        return
-    }
-
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setError(null)
     setSuccess(null)
 
+    //walidacja
+    const sleepEndDay = sleepEnd.split("T")[0] // "YYYY-MM-DD"
+    //do czasu spania
+    const startMs = new Date(sleepStart).getTime()
+    const endMs = new Date(sleepEnd).getTime()
+    const hoursInBed = (endMs - startMs) / 3600000
+    
+    if(sleepStart > sleepEnd) {
+        setError("Godzina rozpoczęcia snu nie może być późniejsza niż godzina zakończenia snu.")
+        return
+    }
+    if (sleepEnd && date !== sleepEndDay) {
+        setError("Data wpisu musi być taka sama jak data z godziny zakończenia snu.")
+        return
+    }
+    if (sleepLatencyExtra < 0|| sleepLatencyExtra > 180) {
+        setError("Podaj prawidłowy dodatkowy czas zasypiania (0-180 minut).")
+        return
+    }
+    if(nightAwakenings < 0 || nightAwakenings > 10) {
+        setError("Podaj prawidłową liczbę przebudzeń w nocy (0-10).")
+        return
+    }
+    if (hoursInBed > 18) {
+      setError("Maksymalny czas w łóżku to 18 godzin.")
+      return
+    }
 
 
     const payload = {
@@ -49,6 +65,7 @@ export default function MorningLogPage() {
     try {
       await apiSubmitMorningLog(payload)
       setSuccess("Poranny dziennik został zapisany pomyślnie.")
+      setTimeout(() => navigate("/", { replace: true }), 2000) //po 2 sekundach wracamy do strony głównej
     } catch (err) {
       setError(err instanceof Error ? err.message : "Nie udało się zapisać porannego dziennika.")
     } finally {

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from sqlmodel import Session
+from fastapi import HTTPException as HttpException
 
 from ..auth.auth_router import get_current_user
 from ..database import get_session
@@ -33,6 +34,10 @@ def create_morning_daly_log(
     Jeśli log dla (user, date) już istnieje – nadpisujemy/uzupełniamy dane poranne.
     Jeśli nie istnieje – tworzymy nowy rekord.
     """
+    # Sprawdzamy, czy czas w łóżku jest sensowny (0-18 godzin)
+    deltaSleep = payload.sleep_end - payload.sleep_start
+    if deltaSleep.total_seconds() < 0 or deltaSleep.total_seconds() > 18 * 3600:
+        raise HttpException(status_code=422, detail="Czas w łóżku musi być między 0 a 18 godzin.")
     log = create_or_update_morning_log(db, current_user, payload)
     return log
 

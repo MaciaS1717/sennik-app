@@ -1,8 +1,10 @@
 import { useState, type FormEvent } from "react"
 import { apiSubmitEveningLog, type ScreensLastHour, type NapType } from "../api/log"
 import "../styles/pages/evening_log.css"
+import { useNavigate } from "react-router-dom"
 
 export default function EveningLogPage() {
+    const navigate = useNavigate()
     const [date, setDate] = useState("")
     const [dayRating, setDayRating] = useState(5)
     const [stressLevel, setStressLevel] = useState(5)
@@ -34,6 +36,7 @@ export default function EveningLogPage() {
         try {
             await apiSubmitEveningLog(payload)
             setSuccess("Wieczorny dziennik został pomyślnie zapisany!")
+            setTimeout(() => navigate("/", { replace: true }), 2000) //po 2 sekundach wracamy do strony głównej
         } catch (err) {
             setError("Nie udało się zapisać wieczornego dziennika.")
         } finally {
