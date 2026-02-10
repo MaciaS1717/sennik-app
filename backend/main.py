@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from .config import get_settings
 from .database import engine
 from sqlmodel import SQLModel
@@ -8,6 +9,16 @@ from .routers.daily_logs import router as daily_logs_router
 settings = get_settings()
 
 app = FastAPI(title="Sennik App API")
+
+
+# CORS dla frontendu (Vite domyslnie 5173)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #dołączamy routery
 app.include_router(auth_router)

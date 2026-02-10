@@ -1,0 +1,29 @@
+.registerPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.registerCard {
+  width: 360px;
+  text-align: left;
+}
+
+.registerField {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.registerControl {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+}
+
+.registerButton {
+  width: 100%;
+}
+
+.registerError {
+  color: crimson;
+}

@@ -1,0 +1,29 @@
+.loginPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.loginCard {
+  width: 360px;
+  text-align: left;
+}
+
+.loginField {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.loginControl {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+}
+
+.loginButton {
+  width: 100%;
+}
+
+.loginError {
+  color: crimson;
+}

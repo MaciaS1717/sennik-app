@@ -49,12 +49,27 @@ Instrukcja uruchamiania
 7. Uruchom backend:
    uvicorn backend.main:app --reload
 
+8. Uruchom frontend (Vite):
+   cd ..\frontend
+   npm install
+   npm run dev
+
 ## 🧾 Najważniejsze komendy (z opisami)
 
 ### 🔹 Backend (Uvicorn)
 
 **uvicorn backend.main:app --reload**  
 – uruchamia backend FastAPI z automatycznym przeładowaniem przy zmianach w kodzie.
+
+---
+
+### Frontend (Vite)
+
+**npm install**  
+- instaluje zaleznosci frontendu.
+
+**npm run dev**  
+- uruchamia serwer developerski Vite (zwykle http://localhost:5173).
 
 ---
 

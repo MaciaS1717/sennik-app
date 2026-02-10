@@ -1,0 +1,74 @@
+.eveningLogPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: #f6f7fb;
+}
+
+.eveningLogCard {
+  width: min(560px, 100%);
+  padding: 20px;
+  border: 1px solid #e6e8ef;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  text-align: left;
+}
+
+.eveningLogCard h1 {
+  margin: 0 0 16px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.eveningLogField {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.eveningLogControl {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  font: inherit;
+}
+
+.eveningLogControl:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.eveningLogButton {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  border: 1px solid #1d4ed8;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.eveningLogButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.eveningLogError {
+  margin-top: 12px;
+  color: crimson;
+}
+
+.eveningLogSuccess {
+  margin-top: 12px;
+  color: #15803d;
+}
