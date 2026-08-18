@@ -77,3 +77,21 @@ class DailyLogEveningResponse(SQLModel):
     """
     today: DailyLogRead
     tomorrow: DailyLogRead
+
+# Schemat: EDYCJA
+class DailyLogUpdate(SQLModel):
+    #date: Optional[date] = None
+
+    sleep_start: Optional[datetime] = None
+    sleep_latency_extra: Optional[int] = Field(default=None, ge=0, le=180)
+    sleep_end: Optional[datetime] = None
+    sleep_quality: Optional[int] = Field(default=None, ge=1, le=10)
+    night_awakenings: Optional[int] = Field(default=None, ge=0, le=10)
+    morning_energy: Optional[int] = Field(default=None, ge=1, le=10)
+
+    day_rating: Optional[int] = Field(default=None, ge=1, le=10)
+    stress_level: Optional[int] = Field(default=None, ge=1, le=10)
+    coffee_last_6h: Optional[bool] = None
+    alcohol_last_4h: Optional[bool] = None
+    screens_last_hour: Optional[ScreensLastHour] = None
+    nap_type: Optional[NapType] = None

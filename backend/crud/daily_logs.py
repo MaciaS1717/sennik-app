@@ -1,11 +1,11 @@
 from datetime import date, datetime, timedelta
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Sequence
 
 from sqlmodel import Session, select
 
 from ..models import DailyLog, User
 from ..models.daily_log import NapType, ScreensLastHour
-from ..schemas.daily_logs import DailyLogCreateMorning, DailyLogUpdateEvening
+from ..schemas.daily_logs import DailyLogCreateMorning, DailyLogUpdateEvening, DailyLogUpdate
 
 def _get_daily_log_for_date(db: Session, user_id: int, log__date: date) -> Optional[DailyLog]:
     statement= select(DailyLog).where(
@@ -22,6 +22,17 @@ def _get_or_create_daily_log(db: Session, user_id: int, log__date: date) -> Dail
         db.commit()
         db.refresh(log)
     return log
+
+def _validate_sleep_time(
+    sleep_start: Optional[datetime],
+    sleep_end: Optional[datetime],
+) -> None:
+    if sleep_start is None or sleep_end is None:
+        return
+
+    delta_sleep = sleep_end - sleep_start
+    if delta_sleep.total_seconds() < 0 or delta_sleep.total_seconds() > 18 * 3600:
+        raise ValueError("Czas w łóżku musi być między 0 a 18 godzin.")
 
 def _compute_sleep_duration(user: User, log: DailyLog) -> Optional[float]:
     if log.sleep_start is None or log.sleep_end is None:
@@ -47,6 +58,8 @@ def _compute_day_score(log: DailyLog) -> Optional[float]:
     return round(score, 2)
 
 def create_or_update_morning_log(db: Session, user: User, payload: DailyLogCreateMorning) -> DailyLog:
+    _validate_sleep_time(payload.sleep_start, payload.sleep_end)
+
     log= _get_or_create_daily_log(db, user.id, payload.date)
 
     log.sleep_start = payload.sleep_start
@@ -94,3 +107,62 @@ def create_or_update_evening_log(db: Session, user: User, payload: DailyLogUpdat
     db.refresh(today_log)
     db.refresh(tomorrow_log)
     return today_log, tomorrow_log
+
+#pobiera listę logów danego usera
+def get_user_daily_logs(
+    db: Session,
+    user_id: int,
+    include_today: bool = True,
+    limit: int = 50,
+    offset: int = 0,
+) -> Sequence[DailyLog]:
+    statement = select(DailyLog).where(DailyLog.user_id == user_id)
+
+    if not include_today:
+        statement = statement.where(DailyLog.date < date.today())
+
+    statement = (
+        statement
+        .order_by(DailyLog.date.desc())
+        .offset(offset)
+        .limit(limit)
+    )
+
+    return db.exec(statement).all()
+
+#pobiera log danego usera po jego ID
+def get_user_daily_log_by_id(
+    db: Session,
+    user_id: int,
+    log_id: int,
+) -> Optional[DailyLog]:
+    statement = select(DailyLog).where(
+        DailyLog.id == log_id,
+        DailyLog.user_id == user_id,
+    )
+    return db.exec(statement).first()
+
+# aktualizuje log danego usera po jego ID
+def update_user_daily_log(
+    db: Session,
+    user: User,
+    log: DailyLog,
+    payload: DailyLogUpdate,
+) -> DailyLog:
+    update_data = payload.model_dump(exclude_unset=True)
+
+    sleep_start = update_data.get("sleep_start", log.sleep_start)
+    sleep_end = update_data.get("sleep_end", log.sleep_end)
+    _validate_sleep_time(sleep_start, sleep_end)
+
+    for field, value in update_data.items():
+        setattr(log, field, value)
+
+    log.sleep_duration = _compute_sleep_duration(user, log)
+    log.day_score = _compute_day_score(log)
+    log.updated_at = datetime.utcnow()
+
+    db.add(log)
+    db.commit()
+    db.refresh(log)
+    return log

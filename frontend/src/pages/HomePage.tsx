@@ -10,6 +10,9 @@ export default function HomePage() {
       <p>
         <Link to="/evening">Dodaj wieczorny raport</Link>
       </p>
+      <p>
+        <Link to="/history">Historia wpisów</Link>
+      </p>
     </div>
   )
 }

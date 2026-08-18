@@ -3,7 +3,8 @@ from .daily_logs import (
     DailyLogCreateMorning,
     DailyLogUpdateEvening,
     DailyLogRead,
-    DailyLogEveningResponse)
+    DailyLogEveningResponse,
+    DailyLogUpdate)
 __all__ = [
     "UserCreate",
     "UserRead",
@@ -11,4 +12,5 @@ __all__ = [
     "DailyLogUpdateEvening",
     "DailyLogRead",
     "DailyLogEveningResponse",
+    "DailyLogUpdate"
 ]

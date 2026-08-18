@@ -69,3 +69,40 @@ export async function apiSubmitEveningLog(data: EveningLog): Promise<DailyLogEve
     body: JSON.stringify(data),
   })
 }
+
+//Do edycji wpisu dziennego
+export type DailyLogUpdate = Partial<{
+  date: string
+
+  sleep_start: string
+  sleep_latency_extra: number
+  sleep_end: string
+  sleep_quality: number
+  night_awakenings: number
+  morning_energy: number
+
+  day_rating: number
+  stress_level: number
+  coffee_last_6h: boolean
+  alcohol_last_4h: boolean
+  screens_last_hour: ScreensLastHour
+  nap_type: NapType
+}>
+
+export async function apiGetDailyLogsHistory(includeToday = false): Promise<DailyLogRead[]> {
+  return http<DailyLogRead[]>(`/daily-logs/?include_today=${includeToday}`)
+}
+
+export async function apiGetDailyLogDetails(logId: number): Promise<DailyLogRead> {
+  return http<DailyLogRead>(`/daily-logs/${logId}`)
+}
+
+export async function apiUpdateDailyLog(
+  logId: number,
+  data: DailyLogUpdate,
+): Promise<DailyLogRead> {
+  return http<DailyLogRead>(`/daily-logs/${logId}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  })
+}
