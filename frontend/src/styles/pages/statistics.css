@@ -1,0 +1,126 @@
+.statisticsPage {
+  min-height: 100vh;
+  padding: 24px 16px;
+  background: #f6f7fb;
+  color: #0f172a;
+  text-align: left;
+}
+
+.statisticsContainer {
+  width: min(960px, 100%);
+  margin: 0 auto;
+}
+
+.statisticsHeader {
+  margin-bottom: 20px;
+}
+
+.statisticsHeader h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.statisticsHeader p {
+  margin: 0;
+  color: #475569;
+}
+
+.statisticsFilters {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid #e6e8ef;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.statisticsField {
+  display: block;
+  font-size: 14px;
+}
+
+.statisticsControl {
+  display: block;
+  min-width: 160px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  font: inherit;
+}
+
+.statisticsButton {
+  padding: 10px 14px;
+  border: 1px solid #1d4ed8;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.statisticsButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.statisticsError {
+  color: crimson;
+}
+
+.statisticsSummary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.statisticsSummaryItem {
+  padding: 14px;
+  border: 1px solid #e6e8ef;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.statisticsSummaryLabel {
+  margin: 0 0 6px;
+  color: #475569;
+  font-size: 14px;
+}
+
+.statisticsSummaryValue {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.statisticsChartBox {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid #e6e8ef;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.statisticsChartBox h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.statisticsChart {
+  width: 100%;
+  height: 300px;
+}
+
+.statisticsEmpty {
+  padding: 16px;
+  border: 1px solid #e6e8ef;
+  border-radius: 12px;
+  background: #ffffff;
+}

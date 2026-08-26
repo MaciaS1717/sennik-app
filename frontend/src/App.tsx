@@ -6,6 +6,7 @@ import MorningLogPage from "./pages/MorningLogPage.tsx"
 import { RequireAuth } from "./auth/RequireAuth.tsx"
 import EveningLogPage from "./pages/EveningLogPage.tsx"
 import HistoryPage from "./pages/HistoryPage.tsx"
+import StatisticsPage from "./pages/StatisticsPage.tsx"
 
 export default function App() {
   return (
@@ -39,6 +40,14 @@ export default function App() {
         element={
           <RequireAuth>
             <HistoryPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/statistics"
+        element={
+          <RequireAuth>
+            <StatisticsPage />
           </RequireAuth>
         }
       />

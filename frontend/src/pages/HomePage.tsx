@@ -13,6 +13,9 @@ export default function HomePage() {
       <p>
         <Link to="/history">Historia wpisów</Link>
       </p>
+      <p>
+        <Link to="/statistics">Statystyki</Link>
+      </p>
     </div>
   )
 }
