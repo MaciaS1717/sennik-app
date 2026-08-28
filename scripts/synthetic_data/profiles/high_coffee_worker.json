@@ -1,0 +1,103 @@
+{
+  "description": "Piotr ma 37 lat i intensywnie pracuje, zachowując dość regularną godzinę pobudki. Często pije kawę w ciągu sześciu godzin przed snem, dlatego profil nadaje się do analizowania jej wpływu na wydłużone zasypianie. Ma wysoki poziom stresu, przeciętną jakość snu i rzadko korzysta z drzemek. W historii występują okresy projektów, deadline'ów, spokojniejszej pracy oraz urlopów.",
+  "account": {
+    "email": "piotr.coffee.test@example.com",
+    "password": "Test123!",
+    "name": "Piotr",
+    "gender": "male",
+    "age": 37,
+    "typical_sleep_latency": 18
+  },
+  "generation": {
+    "date_from": "2024-01-01",
+    "date_to": "2026-08-01",
+    "seed": 36189,
+    "morning_report_probability": 0.96,
+    "evening_report_probability": 0.94
+  },
+  "baseline": {
+    "sleep_start": "23:45",
+    "sleep_end": "06:30",
+    "sleep_quality": 6,
+    "night_awakenings": 1,
+    "morning_energy": 6,
+    "day_rating": 6,
+    "stress_level": 7
+  },
+  "habits": {
+    "coffee_last_6h_probability": 0.48,
+    "alcohol_last_4h_probability": 0.025,
+    "screens_last_hour": {
+      "low": 0.12,
+      "medium": 0.48,
+      "high": 0.4
+    },
+    "nap_type": {
+      "none": 0.88,
+      "short": 0.08,
+      "medium": 0.03,
+      "long": 0.01
+    }
+  },
+  "weekend": {
+    "sleep_start_shift_minutes": 50,
+    "sleep_end_shift_minutes": 90,
+    "stress_modifier": -2
+  },
+  "periods": [
+    {
+      "name": "project_ramp_up_2024",
+      "from": "2024-02-05",
+      "to": "2024-04-07",
+      "sleep_start_shift_minutes": 15,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": 1,
+      "sleep_quality_modifier": 0
+    },
+    {
+      "name": "project_deadline_2024",
+      "from": "2024-04-08",
+      "to": "2024-05-17",
+      "sleep_start_shift_minutes": 35,
+      "sleep_end_shift_minutes": -15,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_vacation_2024",
+      "from": "2024-08-05",
+      "to": "2024-08-25",
+      "sleep_start_shift_minutes": 60,
+      "sleep_end_shift_minutes": 90,
+      "stress_modifier": -3,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "calmer_work_period_2025",
+      "from": "2025-02-03",
+      "to": "2025-04-30",
+      "sleep_start_shift_minutes": -15,
+      "sleep_end_shift_minutes": 15,
+      "stress_modifier": -2,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "major_deadline_2025",
+      "from": "2025-09-15",
+      "to": "2025-11-14",
+      "sleep_start_shift_minutes": 35,
+      "sleep_end_shift_minutes": -15,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_vacation_2026",
+      "from": "2026-06-08",
+      "to": "2026-06-28",
+      "sleep_start_shift_minutes": 45,
+      "sleep_end_shift_minutes": 90,
+      "stress_modifier": -3,
+      "sleep_quality_modifier": 1
+    }
+  ]
+}

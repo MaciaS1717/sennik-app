@@ -1,0 +1,94 @@
+{
+  "description": "Anna ma 31 lat, pracuje w regularnych godzinach i zwykle dba o stały rytm dnia. Śpi prawie osiem godzin, rzadko się wybudza i zazwyczaj budzi się wypoczęta. Wieczorem sporadycznie pije kawę lub alkohol, ogranicza ekrany i rzadko ucina sobie drzemki. Profil stanowi punkt odniesienia dla pozostałych użytkowników, choć uwzględnia też okresy większego stresu, urlopu i spokojniejszej rutyny.",
+  "account": {
+    "email": "anna.healthy.test@example.com",
+    "password": "Test123!",
+    "name": "Anna",
+    "gender": "female",
+    "age": 31,
+    "typical_sleep_latency": 12
+  },
+  "generation": {
+    "date_from": "2024-01-01",
+    "date_to": "2026-08-01",
+    "seed": 18421,
+    "morning_report_probability": 0.99,
+    "evening_report_probability": 0.98
+  },
+  "baseline": {
+    "sleep_start": "22:50",
+    "sleep_end": "06:45",
+    "sleep_quality": 8,
+    "night_awakenings": 1,
+    "morning_energy": 8,
+    "day_rating": 8,
+    "stress_level": 3
+  },
+  "habits": {
+    "coffee_last_6h_probability": 0.04,
+    "alcohol_last_4h_probability": 0.015,
+    "screens_last_hour": {
+      "low": 0.62,
+      "medium": 0.31,
+      "high": 0.07
+    },
+    "nap_type": {
+      "none": 0.92,
+      "short": 0.06,
+      "medium": 0.015,
+      "long": 0.005
+    }
+  },
+  "weekend": {
+    "sleep_start_shift_minutes": 25,
+    "sleep_end_shift_minutes": 40,
+    "stress_modifier": -1
+  },
+  "periods": [
+    {
+      "name": "busy_work_spring_2024",
+      "from": "2024-03-04",
+      "to": "2024-05-03",
+      "sleep_start_shift_minutes": 20,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_vacation_2024",
+      "from": "2024-07-15",
+      "to": "2024-08-04",
+      "sleep_start_shift_minutes": 35,
+      "sleep_end_shift_minutes": 60,
+      "stress_modifier": -2,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "calmer_winter_2025",
+      "from": "2025-01-13",
+      "to": "2025-03-02",
+      "sleep_start_shift_minutes": -10,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "new_responsibilities_2025",
+      "from": "2025-09-08",
+      "to": "2025-10-26",
+      "sleep_start_shift_minutes": 15,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "stable_routine_2026",
+      "from": "2026-04-01",
+      "to": "2026-05-31",
+      "sleep_start_shift_minutes": -10,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 1
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "account": {
+    "email": "student.test@example.com",
+    "password": "Test123!",
+    "name": "Adam",
+    "gender": "male",
+    "age": 22,
+    "typical_sleep_latency": 20
+  },
+  "generation": {
+    "date_from": "2024-01-01",
+    "date_to": "2026-08-01",
+    "seed": 12345,
+    "morning_report_probability": 0.96,
+    "evening_report_probability": 0.93
+  },
+  "baseline": {
+    "sleep_start": "00:15",
+    "sleep_end": "07:30",
+    "sleep_quality": 6,
+    "night_awakenings": 1,
+    "morning_energy": 6,
+    "day_rating": 7,
+    "stress_level": 5
+  },
+  "habits": {
+    "coffee_last_6h_probability": 0.2,
+    "alcohol_last_4h_probability": 0.05,
+    "screens_last_hour": {
+      "low": 0.1,
+      "medium": 0.3,
+      "high": 0.6
+    },
+    "nap_type": {
+      "none": 0.8,
+      "short": 0.12,
+      "medium": 0.06,
+      "long": 0.02
+    }
+  },
+  "weekend": {
+    "sleep_start_shift_minutes": 90,
+    "sleep_end_shift_minutes": 120,
+    "stress_modifier": -1
+  },
+  "periods": [
+    {
+      "name": "exam_session",
+      "from": "2024-01-15",
+      "to": "2024-02-15",
+      "sleep_start_shift_minutes": 45,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_break",
+      "from": "2024-07-01",
+      "to": "2024-08-31",
+      "sleep_start_shift_minutes": 60,
+      "sleep_end_shift_minutes": 90,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 1
+    }
+  ]
+}

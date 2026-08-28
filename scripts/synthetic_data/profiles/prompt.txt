@@ -1,0 +1,367 @@
+Chcę, abyś wygenerował mi 5 różnych profili syntetycznych użytkowników aplikacji monitorującej sen i samopoczucie.
+
+Profile będą używane przez mój lokalny generator danych testowych. Nie generuj samych raportów dziennych. Twoim zadaniem jest wyłącznie przygotowanie 5 plików JSON opisujących różne persony.
+
+Dane z tych profili zostaną później wykorzystane do wygenerowania około 2,5 roku historii raportów.
+
+## Cel
+
+Profile mają być na tyle różne, aby w przyszłości można było na nich testować m.in.:
+
+* statystyki snu,
+* trendy długoterminowe,
+* wykresy,
+* wykrywanie nieregularności,
+* zależność między kawą a czasem zasypiania,
+* zależność między alkoholem a jakością snu i wybudzeniami,
+* wpływ wysokiego stresu,
+* wpływ korzystania z ekranów,
+* wpływ krótkiego snu na energię rano,
+* różnice między tygodniem a weekendem,
+* przyszłe sugestie i rekomendacje dla użytkownika.
+
+Profile nie powinny być skrajnie sztuczne. Mają przypominać prawdziwych użytkowników, ale jednocześnie różnić się na tyle, aby na wykresach i w statystykach były widoczne różne zachowania.
+
+## Wygeneruj następujące persony
+
+### 1. Regularny i zdrowy użytkownik
+
+Charakterystyka:
+
+* około 30 lat,
+* osoba pracująca w regularnych godzinach,
+* chodzi spać mniej więcej 22:30–23:30,
+* śpi około 7,5–8 godzin,
+* dobra jakość snu,
+* niewiele wybudzeń,
+* dobra energia rano,
+* stosunkowo niski stres,
+* niewielka różnica między tygodniem a weekendem,
+* rzadko pije kawę późno,
+* bardzo rzadko pije alkohol przed snem,
+* raczej mało ekranów przed snem,
+* rzadko korzysta z drzemek.
+
+Ten użytkownik ma być **punktem odniesienia** do porównywania z pozostałymi.
+
+Dodaj mu kilka realistycznych okresów, np.:
+
+* stresujący okres w pracy,
+* urlop,
+* spokojniejszy okres.
+
+---
+
+### 2. Student z nieregularnym snem
+
+Charakterystyka:
+
+* około 21–23 lata,
+* późne zasypianie,
+* wyraźnie późniejsze zasypianie i wstawanie w weekend,
+* dużo ekranów przed snem,
+* umiarkowanie częsta kawa,
+* sporadyczny alkohol,
+* stosunkowo częste drzemki,
+* średnia jakość snu,
+* przeciętna energia rano,
+* stres zmieniający się w zależności od okresu.
+
+Dodaj okresy takie jak:
+
+* sesja zimowa,
+* spokojniejszy okres po sesji,
+* wakacje,
+* sesja letnia,
+* bardziej wymagający semestr.
+
+W sesji:
+
+* zwiększ stres,
+* przesuń godzinę snu później,
+* lekko pogorsz jakość snu.
+
+W wakacje:
+
+* obniż stres,
+* pozwól później chodzić spać i później wstawać,
+* lekko popraw jakość snu.
+
+---
+
+### 3. Pracownik często pijący kawę
+
+Charakterystyka:
+
+* około 30–40 lat,
+* pracuje intensywnie,
+* dosyć regularne godziny pobudki,
+* umiarkowanie późna godzina snu,
+* wysoki poziom stresu,
+* **wyraźnie większe prawdopodobieństwo `coffee_last_6h` niż u pozostałych użytkowników**,
+* mało alkoholu,
+* średnia lub duża ilość ekranów,
+* stosunkowo mało drzemek,
+* przeciętna jakość snu.
+
+Profil powinien być przydatny do późniejszego sprawdzania, czy w danych widoczna jest zależność:
+
+`coffee_last_6h = true`
+→ większe `sleep_latency_extra`.
+
+Nie ustawiaj jednak kawy na absurdalnie wysokim poziomie. Powinna występować często, ale nie prawie każdego dnia.
+
+Dodaj okresy:
+
+* normalna praca,
+* intensywny projekt / deadline,
+* urlop,
+* spokojniejszy okres.
+
+Podczas intensywnego projektu:
+
+* zwiększ stres,
+* lekko przesuń sen później,
+* pogorsz jakość snu.
+
+---
+
+### 4. Użytkownik częściej spożywający alkohol wieczorem
+
+Charakterystyka:
+
+* około 25–35 lat,
+* aktywne życie towarzyskie,
+* średnio regularny sen,
+* umiarkowana jakość snu,
+* niewielka lub średnia ilość kawy,
+* **znacznie większe prawdopodobieństwo `alcohol_last_4h` niż u pozostałych użytkowników**,
+* ale nadal realistyczne i zdecydowanie poniżej 0.5,
+* więcej ekranów w godzinach wieczornych,
+* niewiele drzemek.
+
+Profil ma być szczególnie przydatny do testowania zależności:
+
+`alcohol_last_4h = true`
+→ większa liczba wybudzeń
+→ potencjalnie niższe `sleep_quality`.
+
+Uwzględnij również wyraźniejszą zmianę godzin snu w weekend.
+
+Dodaj okresy:
+
+* normalny okres,
+* okres większej liczby spotkań / wakacji,
+* spokojniejszy okres,
+* bardziej stresujący okres zawodowy.
+
+Nie przedstawiaj tej osoby jako osoby uzależnionej. Chodzi wyłącznie o użytkownika, u którego spożycie alkoholu wieczorem występuje częściej niż w pozostałych profilach.
+
+---
+
+### 5. Nocny marek korzystający dużo z ekranów
+
+Charakterystyka:
+
+* około 24–30 lat,
+* bardzo późne godziny snu,
+* zwykle około 01:00–02:00,
+* dużo korzystania z komputera/telefonu wieczorem,
+* `screens_last_hour = high` powinno zdecydowanie dominować,
+* umiarkowana kawa,
+* mało alkoholu,
+* przeciętna lub słabsza jakość snu,
+* niższa energia rano,
+* trochę większa wartość `typical_sleep_latency`,
+* wyraźne przesunięcie snu w weekend,
+* umiarkowany stres.
+
+Profil ma być dobry do testowania przyszłych sugestii dotyczących:
+
+* ograniczenia ekranów,
+* regularności snu,
+* późnego zasypiania.
+
+Dodaj też okres, w którym na kilka miesięcy poprawia swoje nawyki:
+
+* wcześniejsze zasypianie,
+* trochę niższy stres,
+* trochę lepsza jakość snu.
+
+Nie zmieniaj jednak `screens_last_hour` przez `periods`, ponieważ schemat tego nie obsługuje.
+
+## Wspólne zasady
+
+Dla wszystkich 5 użytkowników:
+
+* ustaw zakres generowania:
+
+  * `date_from`: `"2024-01-01"`
+  * `date_to`: `"2026-08-01"`
+* każdy użytkownik ma mieć inny `seed`,
+* każdy użytkownik ma mieć unikalny email,
+* można użyć wspólnego łatwego testowego hasła `"Test123!"`,
+* imiona powinny być polskie,
+* użyj zarówno kobiet, jak i mężczyzn,
+* wartości mają być realistyczne,
+* unikaj ekstremów typu stress zawsze 10 albo sleep_quality zawsze 2,
+* profile mają wyraźnie się od siebie różnić.
+
+`morning_report_probability` i `evening_report_probability` również mogą się trochę różnić między użytkownikami.
+
+Przykładowo:
+
+* regularny użytkownik może uzupełniać raporty bardzo systematycznie,
+* student może czasami zapominać,
+* pozostali mogą znajdować się pomiędzy nimi.
+
+## Bardzo ważne — struktura JSON
+
+KAŻDY profil musi korzystać DOKŁADNIE z poniższego schematu.
+
+Nie dodawaj żadnych nowych pól.
+
+Nie zmieniaj nazw istniejących pól.
+
+```json
+{
+  "account": {
+    "email": "student.test@example.com",
+    "password": "Test123!",
+    "name": "Adam",
+    "gender": "male",
+    "age": 22,
+    "typical_sleep_latency": 20
+  },
+  "generation": {
+    "date_from": "2024-01-01",
+    "date_to": "2026-08-01",
+    "seed": 12345,
+    "morning_report_probability": 0.96,
+    "evening_report_probability": 0.93
+  },
+  "baseline": {
+    "sleep_start": "00:15",
+    "sleep_end": "07:30",
+    "sleep_quality": 6,
+    "night_awakenings": 1,
+    "morning_energy": 6,
+    "day_rating": 7,
+    "stress_level": 5
+  },
+  "habits": {
+    "coffee_last_6h_probability": 0.2,
+    "alcohol_last_4h_probability": 0.05,
+    "screens_last_hour": {
+      "low": 0.1,
+      "medium": 0.3,
+      "high": 0.6
+    },
+    "nap_type": {
+      "none": 0.8,
+      "short": 0.12,
+      "medium": 0.06,
+      "long": 0.02
+    }
+  },
+  "weekend": {
+    "sleep_start_shift_minutes": 90,
+    "sleep_end_shift_minutes": 120,
+    "stress_modifier": -1
+  },
+  "periods": [
+    {
+      "name": "example_period",
+      "from": "2024-01-15",
+      "to": "2024-02-15",
+      "sleep_start_shift_minutes": 45,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    }
+  ]
+}
+```
+
+## Ważne zasady dotyczące `periods`
+
+Okresy:
+
+* nie mogą się nakładać,
+* muszą znajdować się między 2024-01-01 a 2026-08-01,
+* powinny być rozmieszczone również w 2025 i 2026 roku, a nie tylko na początku historii,
+* powinny reprezentować dłuższe realistyczne zmiany w życiu użytkownika,
+* nie twórz kilkudziesięciu okresów.
+
+Preferuję około 4–7 istotnych okresów na użytkownika obejmujących wybrane fragmenty całej historii.
+
+Nie musi istnieć period obejmujący każdy dzień. Dni poza okresami korzystają z `baseline`.
+
+## Rozkłady prawdopodobieństwa
+
+Dla:
+
+```json
+"screens_last_hour"
+```
+
+wartości:
+
+```text
+low + medium + high
+```
+
+muszą sumować się dokładnie do `1.0`.
+
+Dla:
+
+```json
+"nap_type"
+```
+
+wartości:
+
+```text
+none + short + medium + long
+```
+
+również muszą sumować się dokładnie do `1.0`.
+
+Wszystkie prawdopodobieństwa muszą mieścić się w zakresie `0.0–1.0`.
+
+## Baseline
+
+`baseline` ma oznaczać **typowe zachowanie użytkownika**, a nie średnią matematyczną całej historii.
+
+Dlatego wartości powinny być łatwe do interpretacji, najlepiej całkowite dla pól 1–10.
+
+## Wynik
+
+Wygeneruj dokładnie 5 osobnych plików:
+
+1. `healthy_regular.json`
+2. `irregular_student.json`
+3. `high_coffee_worker.json`
+4. `social_alcohol_user.json`
+5. `night_owl.json`
+
+Dla każdego:
+
+* najpierw podaj nazwę pliku,
+* następnie pełną zawartość JSON w osobnym bloku kodu.
+
+Po JSON-ach dodaj krótką tabelę podsumowującą różnice między użytkownikami, np.:
+
+| profil | sen | stres | kawa | alkohol | ekrany | zastosowanie testowe |
+
+Nie dodawaj żadnych komentarzy `//` wewnątrz JSON, ponieważ pliki mają być bezpośrednio zapisywane i odczytywane przez program.
+
+Przed podaniem odpowiedzi sprawdź:
+
+* czy wszystkie JSON-y są poprawne składniowo,
+* czy używają dokładnie tego samego schematu,
+* czy prawdopodobieństwa sumują się do 1,
+* czy okresy się nie nakładają,
+* czy każdy email jest unikalny,
+* czy każdy seed jest inny,
+* czy profile rzeczywiście wyraźnie różnią się między sobą.
