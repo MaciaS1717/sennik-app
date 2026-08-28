@@ -1,0 +1,103 @@
+{
+  "description": "Katarzyna ma 29 lat i prowadzi aktywne życie towarzyskie. Częściej niż pozostali użytkownicy spożywa alkohol wieczorem, szczególnie w połączeniu z wyraźnie późniejszym snem w weekendy. Profil pozwala obserwować zależność między alkoholem, liczbą nocnych wybudzeń i jakością snu. Nie przedstawia osoby uzależnionej, lecz użytkowniczkę o częstszych, nadal realistycznych okazjach towarzyskich.",
+  "account": {
+    "email": "katarzyna.social.test@example.com",
+    "password": "Test123!",
+    "name": "Katarzyna",
+    "gender": "female",
+    "age": 29,
+    "typical_sleep_latency": 15
+  },
+  "generation": {
+    "date_from": "2024-01-01",
+    "date_to": "2026-08-01",
+    "seed": 47502,
+    "morning_report_probability": 0.93,
+    "evening_report_probability": 0.91
+  },
+  "baseline": {
+    "sleep_start": "23:40",
+    "sleep_end": "07:10",
+    "sleep_quality": 6,
+    "night_awakenings": 1,
+    "morning_energy": 6,
+    "day_rating": 7,
+    "stress_level": 5
+  },
+  "habits": {
+    "coffee_last_6h_probability": 0.14,
+    "alcohol_last_4h_probability": 0.24,
+    "screens_last_hour": {
+      "low": 0.12,
+      "medium": 0.38,
+      "high": 0.5
+    },
+    "nap_type": {
+      "none": 0.88,
+      "short": 0.08,
+      "medium": 0.03,
+      "long": 0.01
+    }
+  },
+  "weekend": {
+    "sleep_start_shift_minutes": 105,
+    "sleep_end_shift_minutes": 150,
+    "stress_modifier": -1
+  },
+  "periods": [
+    {
+      "name": "social_summer_2024",
+      "from": "2024-05-20",
+      "to": "2024-08-18",
+      "sleep_start_shift_minutes": 75,
+      "sleep_end_shift_minutes": 75,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "calmer_autumn_2024",
+      "from": "2024-10-07",
+      "to": "2024-12-08",
+      "sleep_start_shift_minutes": -20,
+      "sleep_end_shift_minutes": -15,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "work_stress_2025",
+      "from": "2025-02-10",
+      "to": "2025-04-25",
+      "sleep_start_shift_minutes": 25,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "holiday_meetings_2025",
+      "from": "2025-07-01",
+      "to": "2025-09-07",
+      "sleep_start_shift_minutes": 75,
+      "sleep_end_shift_minutes": 90,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "quieter_start_2026",
+      "from": "2026-01-12",
+      "to": "2026-03-22",
+      "sleep_start_shift_minutes": -20,
+      "sleep_end_shift_minutes": -10,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "work_stress_2026",
+      "from": "2026-05-04",
+      "to": "2026-07-10",
+      "sleep_start_shift_minutes": 30,
+      "sleep_end_shift_minutes": -15,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    }
+  ]
+}

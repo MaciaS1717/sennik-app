@@ -1,0 +1,112 @@
+{
+  "description": "Adam ma 22 lata i jest studentem prowadzącym nieregularny tryb życia. Zwykle zasypia późno, a w weekendy jeszcze później chodzi spać i wstaje. Często korzysta z ekranów przed snem, czasami pije kawę wieczorem i stosunkowo często korzysta z drzemek. Jego sen, stres i energia wyraźnie zmieniają się podczas sesji, spokojniejszych okresów nauki oraz wakacji.",
+  "account": {
+    "email": "adam.student.test@example.com",
+    "password": "Test123!",
+    "name": "Adam",
+    "gender": "male",
+    "age": 22,
+    "typical_sleep_latency": 20
+  },
+  "generation": {
+    "date_from": "2024-01-01",
+    "date_to": "2026-08-01",
+    "seed": 29734,
+    "morning_report_probability": 0.88,
+    "evening_report_probability": 0.84
+  },
+  "baseline": {
+    "sleep_start": "00:45",
+    "sleep_end": "07:45",
+    "sleep_quality": 6,
+    "night_awakenings": 1,
+    "morning_energy": 6,
+    "day_rating": 7,
+    "stress_level": 5
+  },
+  "habits": {
+    "coffee_last_6h_probability": 0.23,
+    "alcohol_last_4h_probability": 0.07,
+    "screens_last_hour": {
+      "low": 0.08,
+      "medium": 0.25,
+      "high": 0.67
+    },
+    "nap_type": {
+      "none": 0.62,
+      "short": 0.22,
+      "medium": 0.12,
+      "long": 0.04
+    }
+  },
+  "weekend": {
+    "sleep_start_shift_minutes": 120,
+    "sleep_end_shift_minutes": 180,
+    "stress_modifier": -1
+  },
+  "periods": [
+    {
+      "name": "winter_exam_session_2024",
+      "from": "2024-01-08",
+      "to": "2024-02-16",
+      "sleep_start_shift_minutes": 60,
+      "sleep_end_shift_minutes": 0,
+      "stress_modifier": 3,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "post_exam_calm_2024",
+      "from": "2024-02-17",
+      "to": "2024-04-07",
+      "sleep_start_shift_minutes": -15,
+      "sleep_end_shift_minutes": 30,
+      "stress_modifier": -2,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "summer_exam_session_2024",
+      "from": "2024-05-27",
+      "to": "2024-06-28",
+      "sleep_start_shift_minutes": 50,
+      "sleep_end_shift_minutes": -30,
+      "stress_modifier": 3,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_break_2024",
+      "from": "2024-07-01",
+      "to": "2024-09-22",
+      "sleep_start_shift_minutes": 75,
+      "sleep_end_shift_minutes": 150,
+      "stress_modifier": -2,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "demanding_semester_2025",
+      "from": "2025-10-06",
+      "to": "2025-12-19",
+      "sleep_start_shift_minutes": 30,
+      "sleep_end_shift_minutes": -15,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "winter_exam_session_2026",
+      "from": "2026-01-12",
+      "to": "2026-02-20",
+      "sleep_start_shift_minutes": 60,
+      "sleep_end_shift_minutes": -30,
+      "stress_modifier": 3,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_break_2026",
+      "from": "2026-06-29",
+      "to": "2026-08-01",
+      "sleep_start_shift_minutes": 90,
+      "sleep_end_shift_minutes": 180,
+      "stress_modifier": -2,
+      "sleep_quality_modifier": 1
+    }
+  ]
+}

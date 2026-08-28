@@ -1,0 +1,103 @@
+{
+  "description": "Michał ma 27 lat i jest typowym nocnym markiem, który zwykle zasypia około 01:30. Bardzo często korzysta z komputera lub telefonu bezpośrednio przed snem, zasypia dłużej i ma niższą poranną energię. W weekendy jego rytm snu przesuwa się jeszcze bardziej. Profil zawiera również kilkumiesięczny okres poprawy nawyków z wcześniejszym zasypianiem, niższym stresem i lepszą jakością snu.",
+  "account": {
+    "email": "michal.nightowl.test@example.com",
+    "password": "Test123!",
+    "name": "Michał",
+    "gender": "male",
+    "age": 27,
+    "typical_sleep_latency": 28
+  },
+  "generation": {
+    "date_from": "2024-01-01",
+    "date_to": "2026-08-01",
+    "seed": 58317,
+    "morning_report_probability": 0.91,
+    "evening_report_probability": 0.89
+  },
+  "baseline": {
+    "sleep_start": "01:30",
+    "sleep_end": "08:15",
+    "sleep_quality": 5,
+    "night_awakenings": 1,
+    "morning_energy": 5,
+    "day_rating": 6,
+    "stress_level": 5
+  },
+  "habits": {
+    "coffee_last_6h_probability": 0.24,
+    "alcohol_last_4h_probability": 0.035,
+    "screens_last_hour": {
+      "low": 0.03,
+      "medium": 0.17,
+      "high": 0.8
+    },
+    "nap_type": {
+      "none": 0.75,
+      "short": 0.15,
+      "medium": 0.08,
+      "long": 0.02
+    }
+  },
+  "weekend": {
+    "sleep_start_shift_minutes": 105,
+    "sleep_end_shift_minutes": 135,
+    "stress_modifier": -1
+  },
+  "periods": [
+    {
+      "name": "late_project_2024",
+      "from": "2024-03-11",
+      "to": "2024-05-19",
+      "sleep_start_shift_minutes": 30,
+      "sleep_end_shift_minutes": -15,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_break_2024",
+      "from": "2024-07-01",
+      "to": "2024-09-01",
+      "sleep_start_shift_minutes": 60,
+      "sleep_end_shift_minutes": 120,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 0
+    },
+    {
+      "name": "improved_habits_2025",
+      "from": "2025-02-01",
+      "to": "2025-06-30",
+      "sleep_start_shift_minutes": -75,
+      "sleep_end_shift_minutes": -30,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 1
+    },
+    {
+      "name": "autumn_workload_2025",
+      "from": "2025-09-15",
+      "to": "2025-11-30",
+      "sleep_start_shift_minutes": 35,
+      "sleep_end_shift_minutes": -15,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "winter_deadline_2026",
+      "from": "2026-01-12",
+      "to": "2026-03-15",
+      "sleep_start_shift_minutes": 40,
+      "sleep_end_shift_minutes": -20,
+      "stress_modifier": 2,
+      "sleep_quality_modifier": -1
+    },
+    {
+      "name": "summer_break_2026",
+      "from": "2026-06-15",
+      "to": "2026-08-01",
+      "sleep_start_shift_minutes": 75,
+      "sleep_end_shift_minutes": 120,
+      "stress_modifier": -1,
+      "sleep_quality_modifier": 0
+    }
+  ]
+}

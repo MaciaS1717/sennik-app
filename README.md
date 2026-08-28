@@ -102,3 +102,39 @@ Instrukcja uruchamiania
 
 **git checkout -b feature/nazwa-funkcji**  
 – tworzy nowy branch i jednocześnie na niego przełącza, np. na nową funkcjonalność.
+
+Seedowanie danych testowych
+---------------------------
+
+Projekt zawiera lokalny seeder generujący przykładowych użytkowników oraz historię wpisów `DailyLog`.
+
+Seeder jest przeznaczony tylko do środowiska developerskiego/testowego. Przed uruchomieniem upewnij się, że w pliku `backend/.env` masz:
+
+   ENVIRONMENT=dev
+
+Profile użytkowników znajdują się w katalogu:
+
+   scripts/synthetic_data/profiles/
+
+Każdy plik `.json` w tym katalogu opisuje jednego testowego użytkownika, np.:
+
+   scripts/synthetic_data/profiles/example.json
+
+Aby uruchomić seeder, przejdź do głównego katalogu projektu i wykonaj:
+
+   .\venv\Scripts\Activate.ps1
+   python -m scripts.synthetic_data.seed
+
+Seeder:
+
+- wczytuje wszystkie profile `.json` z katalogu `profiles`,
+- tworzy użytkownika w tabeli `users`,
+- hashuje hasło tym samym mechanizmem co zwykła rejestracja,
+- generuje historyczne wpisy `DailyLog`,
+- wylicza `sleep_duration` i `day_score`,
+- pomija użytkownika, jeśli konto z takim adresem e-mail już istnieje.
+
+Po poprawnym uruchomieniu można zalogować się na konto testowe danymi z profilu, np.:
+
+   student.test@example.com
+   Test123!
