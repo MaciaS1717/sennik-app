@@ -19,12 +19,12 @@ export type DailyLogRead = {
   user_id: number
   date: string
 
-  sleep_start: string
-  sleep_latency_extra: number
-  sleep_end: string
-  sleep_quality: number
-  night_awakenings: number
-  morning_energy: number
+  sleep_start: string | null
+  sleep_latency_extra: number | null
+  sleep_end: string | null
+  sleep_quality: number | null
+  night_awakenings: number | null
+  morning_energy: number | null
 
   day_rating: number | null
   stress_level: number | null

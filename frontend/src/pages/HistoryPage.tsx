@@ -65,12 +65,12 @@ export default function HistoryPage() {
       const updated = await apiUpdateDailyLog(selectedLog.id, {
         date: selectedLog.date,
 
-        sleep_start: selectedLog.sleep_start,
-        sleep_latency_extra: selectedLog.sleep_latency_extra,
-        sleep_end: selectedLog.sleep_end,
-        sleep_quality: selectedLog.sleep_quality,
-        night_awakenings: selectedLog.night_awakenings,
-        morning_energy: selectedLog.morning_energy,
+        sleep_start: selectedLog.sleep_start ?? undefined,
+        sleep_latency_extra: selectedLog.sleep_latency_extra ?? undefined,
+        sleep_end: selectedLog.sleep_end ?? undefined,
+        sleep_quality: selectedLog.sleep_quality ?? undefined,
+        night_awakenings: selectedLog.night_awakenings ?? undefined,
+        morning_energy: selectedLog.morning_energy ?? undefined,
 
         day_rating: selectedLog.day_rating ?? undefined,
         stress_level: selectedLog.stress_level ?? undefined,
@@ -116,205 +116,221 @@ export default function HistoryPage() {
         </ul>
       )}
 
-      {selectedLog && (
-        <>
-          <h2>Podgląd wpisu: {selectedLog.date}</h2>
+    {selectedLog && (
+      <>
+        <h2>Podgląd wpisu: {selectedLog.date}</h2>
 
-          {!isEditing && (
-            <button type="button" onClick={() => setIsEditing(true)}>
-              Edytuj
-            </button>
-          )}
+        {!isEditing && (
+          <button type="button" onClick={() => setIsEditing(true)}>
+            Edytuj
+          </button>
+        )}
 
-          <form onSubmit={onSubmit}>
-            <fieldset disabled={!isEditing || isSaving}>
-              <label>
-                Data
-                <input
-                  type="date"
-                  value={selectedLog.date}
-                  onChange={(e) => updateSelected("date", e.target.value)}
-                />
-              </label>
+        <form onSubmit={onSubmit}>
+          <fieldset disabled={!isEditing || isSaving}>
+            <label>
+              Data
+              <input
+                type="date"
+                value={selectedLog.date}
+                onChange={(e) => updateSelected("date", e.target.value)}
+              />
+            </label>
 
-              <br />
+            <br />
 
-              <label>
-                Początek snu
-                <input
-                  type="datetime-local"
-                  value={selectedLog.sleep_start?.slice(0, 16) ?? ""}
-                  onChange={(e) => updateSelected("sleep_start", e.target.value)}
-                />
-              </label>
+            <h3>Raport poranny</h3>
 
-              <br />
-
-              <label>
-                Dodatkowy czas zasypiania
-                <input
-                  type="number"
-                  min={0}
-                  max={180}
-                  value={selectedLog.sleep_latency_extra ?? 0}
-                  onChange={(e) => updateSelected("sleep_latency_extra", Number(e.target.value))}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Koniec snu
-                <input
-                  type="datetime-local"
-                  value={selectedLog.sleep_end?.slice(0, 16) ?? ""}
-                  onChange={(e) => updateSelected("sleep_end", e.target.value)}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Jakość snu
-                <input
-                  type="number"
-                  min={1}
-                  max={10}
-                  value={selectedLog.sleep_quality ?? 1}
-                  onChange={(e) => updateSelected("sleep_quality", Number(e.target.value))}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Przebudzenia
-                <input
-                  type="number"
-                  min={0}
-                  max={10}
-                  value={selectedLog.night_awakenings ?? 0}
-                  onChange={(e) => updateSelected("night_awakenings", Number(e.target.value))}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Energia rano
-                <input
-                  type="number"
-                  min={1}
-                  max={10}
-                  value={selectedLog.morning_energy ?? 1}
-                  onChange={(e) => updateSelected("morning_energy", Number(e.target.value))}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Ocena dnia
-                <input
-                  type="number"
-                  min={1}
-                  max={10}
-                  value={selectedLog.day_rating ?? 1}
-                  onChange={(e) => updateSelected("day_rating", Number(e.target.value))}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Poziom stresu
-                <input
-                  type="number"
-                  min={1}
-                  max={10}
-                  value={selectedLog.stress_level ?? 1}
-                  onChange={(e) => updateSelected("stress_level", Number(e.target.value))}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Kawa ostatnie 6h
-                <input
-                  type="checkbox"
-                  checked={selectedLog.coffee_last_6h ?? false}
-                  onChange={(e) => updateSelected("coffee_last_6h", e.target.checked)}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Alkohol ostatnie 4h
-                <input
-                  type="checkbox"
-                  checked={selectedLog.alcohol_last_4h ?? false}
-                  onChange={(e) => updateSelected("alcohol_last_4h", e.target.checked)}
-                />
-              </label>
-
-              <br />
-
-              <label>
-                Ekrany ostatnia godzina
-                <select
-                  value={selectedLog.screens_last_hour ?? "low"}
-                  onChange={(e) =>
-                    updateSelected("screens_last_hour", e.target.value as ScreensLastHour)
-                  }
-                >
-                  <option value="low">Niski</option>
-                  <option value="medium">Średni</option>
-                  <option value="high">Wysoki</option>
-                </select>
-              </label>
-
-              <br />
-
-              <label>
-                Drzemka
-                <select
-                  value={selectedLog.nap_type ?? "none"}
-                  onChange={(e) => updateSelected("nap_type", e.target.value as NapType)}
-                >
-                  <option value="none">Brak</option>
-                  <option value="short">Krótka</option>
-                  <option value="medium">Średnia</option>
-                  <option value="long">Długa</option>
-                </select>
-              </label>
-            </fieldset>
-
-            <p>Czas snu: {selectedLog.sleep_duration ?? "-"} h</p>
-            <p>Wynik dnia: {selectedLog.day_score ?? "-"}</p>
-
-            {isEditing && (
+            {selectedLog.sleep_start === null ? (
+              <p>Brak raportu porannego dla tego dnia.</p>
+            ) : (
               <>
-                <button type="submit" disabled={isSaving}>
-                  {isSaving ? "Zapisywanie..." : "Zapisz zmiany"}
-                </button>
+                <label>
+                  Początek snu
+                  <input
+                    type="datetime-local"
+                    value={selectedLog.sleep_start.slice(0, 16)}
+                    onChange={(e) => updateSelected("sleep_start", e.target.value)}
+                  />
+                </label>
 
-                <button
-                  type="button"
-                  disabled={isSaving}
-                  onClick={() => {
-                    setIsEditing(false)
-                    selectLog(selectedLog.id)
-                  }}
-                >
-                  Anuluj
-                </button>
+                <br />
+
+                <label>
+                  Dodatkowy czas zasypiania
+                  <input
+                    type="number"
+                    min={0}
+                    max={180}
+                    value={selectedLog.sleep_latency_extra ?? 0}
+                    onChange={(e) => updateSelected("sleep_latency_extra", Number(e.target.value))}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Koniec snu
+                  <input
+                    type="datetime-local"
+                    value={selectedLog.sleep_end?.slice(0, 16) ?? ""}
+                    onChange={(e) => updateSelected("sleep_end", e.target.value)}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Jakość snu
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={selectedLog.sleep_quality ?? ""}
+                    onChange={(e) => updateSelected("sleep_quality", Number(e.target.value))}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Przebudzenia
+                  <input
+                    type="number"
+                    min={0}
+                    max={10}
+                    value={selectedLog.night_awakenings ?? ""}
+                    onChange={(e) => updateSelected("night_awakenings", Number(e.target.value))}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Energia rano
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={selectedLog.morning_energy ?? ""}
+                    onChange={(e) => updateSelected("morning_energy", Number(e.target.value))}
+                  />
+                </label>
+
+                <br />
               </>
             )}
-          </form>
-        </>
-      )}
+
+            <h3>Raport wieczorny</h3>
+
+            {selectedLog.stress_level === null ? (
+              <p>Brak raportu wieczornego dla tego dnia.</p>
+            ) : (
+              <>
+                <label>
+                  Ocena dnia
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={selectedLog.day_rating ?? ""}
+                    onChange={(e) => updateSelected("day_rating", Number(e.target.value))}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Poziom stresu
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    value={selectedLog.stress_level}
+                    onChange={(e) => updateSelected("stress_level", Number(e.target.value))}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Kawa ostatnie 6h
+                  <input
+                    type="checkbox"
+                    checked={selectedLog.coffee_last_6h ?? false}
+                    onChange={(e) => updateSelected("coffee_last_6h", e.target.checked)}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Alkohol ostatnie 4h
+                  <input
+                    type="checkbox"
+                    checked={selectedLog.alcohol_last_4h ?? false}
+                    onChange={(e) => updateSelected("alcohol_last_4h", e.target.checked)}
+                  />
+                </label>
+
+                <br />
+
+                <label>
+                  Ekrany ostatnia godzina
+                  <select
+                    value={selectedLog.screens_last_hour ?? "low"}
+                    onChange={(e) =>
+                      updateSelected("screens_last_hour", e.target.value as ScreensLastHour)
+                    }
+                  >
+                    <option value="low">Niski</option>
+                    <option value="medium">Średni</option>
+                    <option value="high">Wysoki</option>
+                  </select>
+                </label>
+
+                <br />
+
+                <label>
+                  Drzemka
+                  <select
+                    value={selectedLog.nap_type ?? "none"}
+                    onChange={(e) => updateSelected("nap_type", e.target.value as NapType)}
+                  >
+                    <option value="none">Brak</option>
+                    <option value="short">Krótka</option>
+                    <option value="medium">Średnia</option>
+                    <option value="long">Długa</option>
+                  </select>
+                </label>
+              </>
+            )}
+          </fieldset>
+
+          <p>Czas snu: {selectedLog.sleep_duration ?? "-"} h</p>
+          <p>Wynik dnia: {selectedLog.day_score ?? "-"}</p>
+
+          {isEditing && (
+            <>
+              <button type="submit" disabled={isSaving}>
+                {isSaving ? "Zapisywanie..." : "Zapisz zmiany"}
+              </button>
+
+              <button
+                type="button"
+                disabled={isSaving}
+                onClick={() => {
+                  setIsEditing(false)
+                  selectLog(selectedLog.id)
+                }}
+              >
+                Anuluj
+              </button>
+            </>
+          )}
+        </form>
+      </>
+    )}
     </div>
   )
 }
