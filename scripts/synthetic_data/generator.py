@@ -284,6 +284,8 @@ def generate_history(profile: Profile) -> list[LogData]:
         "screens_last_hour": "medium",
         "nap_type": "none",
     }
+    # Przed pierwszym dniem nie ma zgłoszonego raportu wieczornego.
+    previous_has_evening = False
 
     rows = []
 
@@ -296,8 +298,9 @@ def generate_history(profile: Profile) -> list[LogData]:
         has_morning = chance(rng, generation["morning_report_probability"])
         has_evening = chance(rng, generation["evening_report_probability"])
 
-        # Dzień jest zapisywany, jeśli istnieje przynajmniej jeden raport.
-        if has_morning or has_evening:
+        # Dzień jest zapisywany, jeśli trafiają do niego dane z dowolnego raportu
+        # (tak jak API, które tworzy rekord D+1 przy raporcie wieczornym z dnia D).
+        if has_morning or has_evening or previous_has_evening:
             row = {"date": current_date}
 
             for field in [
@@ -310,20 +313,26 @@ def generate_history(profile: Profile) -> list[LogData]:
             ]:
                 row[field] = morning[field] if has_morning else None
 
+            # Ocena dnia D należy do rekordu D.
+            row["day_rating"] = evening["day_rating"] if has_evening else None
+
+            # Stres i nawyki z wieczoru D-1 wpływają na noc zapisaną w rekordzie D
+            # (logika D / D+1 z crud/daily_logs.py).
             for field in [
-                "day_rating",
                 "stress_level",
                 "coffee_last_6h",
                 "alcohol_last_4h",
                 "screens_last_hour",
                 "nap_type",
             ]:
-                row[field] = evening[field] if has_evening else None
+                row[field] = previous_evening[field] if previous_has_evening else None
 
             rows.append(row)
 
         # Dzisiejszy wieczór wpływa na dane snu następnego dnia.
+        # Wieczór ostatniego dnia zakresu nie tworzy już rekordu date_to + 1.
         previous_evening = evening
+        previous_has_evening = has_evening
         current_date += timedelta(days=1)
 
     return rows
