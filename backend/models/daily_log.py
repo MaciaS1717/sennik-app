@@ -2,7 +2,7 @@ from datetime import date, datetime
 from enum import Enum
 from typing import Optional, TYPE_CHECKING
 
-from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import SQLModel, Field, Relationship, UniqueConstraint
 
 if TYPE_CHECKING:
     from .user import User
@@ -23,6 +23,10 @@ class NapType(str, Enum):
 
 class DailyLog(SQLModel, table=True):
     __tablename__ = "daily_logs"
+    # Jeden wpis na użytkownika i dzień - pilnowane przez bazę, nie tylko przez kod
+    __table_args__ = (
+        UniqueConstraint("user_id", "date", name="uq_daily_logs_user_date"),
+    )
 
     # Identyfikacja
     id: Optional[int] = Field(default=None, primary_key=True)

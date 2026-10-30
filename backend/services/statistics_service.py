@@ -1,6 +1,6 @@
 #obliczenia do panelu statystyk
 
-from datetime import date, timedelta
+from datetime import date
 from typing import Optional, Sequence
 
 from sqlmodel import Session, select
@@ -12,21 +12,6 @@ from ..schemas.statistics import (
     StatisticsResponse,
     StatisticsSummary,
 )
-
-# w godzinach
-def _compute_sleep_duration(log: DailyLog) -> Optional[float]:
-    if log.sleep_start is None or log.sleep_end is None:
-        return None
-
-    latency_minutes = log.sleep_latency_extra or 0
-    actual_sleep_start = log.sleep_start + timedelta(minutes=latency_minutes)
-
-    duration_seconds = (log.sleep_end - actual_sleep_start).total_seconds()
-    if duration_seconds < 0:
-        return 0.0
-
-    return round(duration_seconds / 3600, 2)
-
 
 def _average(values: Sequence[Optional[float]]) -> Optional[float]:
     existing_values = [value for value in values if value is not None]
@@ -59,7 +44,7 @@ def get_user_sleep_statistics(
     for log in logs:
         point = StatisticsDailyPoint(
             date=log.date,
-            sleep_duration=_compute_sleep_duration(log),
+            sleep_duration=log.sleep_duration,
             sleep_quality=log.sleep_quality,
             night_awakenings=log.night_awakenings,
             morning_energy=log.morning_energy,

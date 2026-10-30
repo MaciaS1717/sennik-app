@@ -34,6 +34,14 @@ def _validate_sleep_time(
     if delta_sleep.total_seconds() < 0 or delta_sleep.total_seconds() > 18 * 3600:
         raise ValueError("Czas w łóżku musi być między 0 a 18 godzin.")
 
+#data wpisu to dzień pobudki - dzięki temu sen trafia do rekordu D (logika D / D+1)
+def _validate_log_date(log_date: date, sleep_end: Optional[datetime]) -> None:
+    if sleep_end is None:
+        return
+
+    if sleep_end.date() != log_date:
+        raise ValueError("Data wpisu musi być taka sama jak data zakończenia snu.")
+
 def _compute_sleep_duration(user: User, log: DailyLog) -> Optional[float]:
     if log.sleep_start is None or log.sleep_end is None:
         return None
@@ -59,6 +67,7 @@ def _compute_day_score(log: DailyLog) -> Optional[float]:
 
 def create_or_update_morning_log(db: Session, user: User, payload: DailyLogCreateMorning) -> DailyLog:
     _validate_sleep_time(payload.sleep_start, payload.sleep_end)
+    _validate_log_date(payload.date, payload.sleep_end)
 
     log= _get_or_create_daily_log(db, user.id, payload.date)
 
@@ -154,6 +163,7 @@ def update_user_daily_log(
     sleep_start = update_data.get("sleep_start", log.sleep_start)
     sleep_end = update_data.get("sleep_end", log.sleep_end)
     _validate_sleep_time(sleep_start, sleep_end)
+    _validate_log_date(log.date, sleep_end)
 
     for field, value in update_data.items():
         setattr(log, field, value)
