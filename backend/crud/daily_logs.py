@@ -125,7 +125,10 @@ def get_user_daily_logs(
     limit: int = 50,
     offset: int = 0,
 ) -> Sequence[DailyLog]:
-    statement = select(DailyLog).where(DailyLog.user_id == user_id)
+    statement = select(DailyLog).where(
+        DailyLog.user_id == user_id,
+        DailyLog.date <= date.today(), #bez wierszy z przyszłą datą (tych niedokończonych)
+    )
 
     if not include_today:
         statement = statement.where(DailyLog.date < date.today())

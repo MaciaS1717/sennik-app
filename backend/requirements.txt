@@ -20,3 +20,8 @@ passlib[bcrypt]
 bcrypt<4
 
 pytest
+
+pandas
+numpy
+pyyaml
+
