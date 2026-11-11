@@ -44,8 +44,8 @@ class DailyLog(SQLModel, table=True):
     # Wieczorny raport
     day_rating: Optional[int]  # 1–10 (TARGET2)
     stress_level: Optional[int]  # 1–10
-    coffee_last_6h: Optional[bool] = Field(default=False)
-    alcohol_last_4h: Optional[bool] = Field(default=False)
+    coffee_last_6h: Optional[bool] = None
+    alcohol_last_4h: Optional[bool] = None
     screens_last_hour: Optional[ScreensLastHour]
     nap_type: Optional[NapType]
 
