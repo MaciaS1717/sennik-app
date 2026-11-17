@@ -38,3 +38,9 @@ def load_test_user(file_name: str) -> dict:
 def healthy_user() -> dict:
     # Anna (healthy_regular.json): regularny sen, prawie codzienne raporty.
     return load_test_user("healthy_regular.json")
+
+
+@pytest.fixture(scope="session")
+def coffee_user() -> dict:
+    # Piotr (high_coffee_worker.json): dużo kawy, często krótki sen.
+    return load_test_user("high_coffee_worker.json")
