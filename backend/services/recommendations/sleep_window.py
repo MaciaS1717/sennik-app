@@ -15,7 +15,7 @@ OPTION_WINDOW = 15          # do opcji liczymy noce o długości ±15 min od nie
 RATING_ORDER = {"dobra": 0, "za_malo_danych": 1, "slabsza": 2, "brak_oceny": 0}
 USUAL_RADIUS = 60           # pora zaśnięcia jest „zwykła”, gdy w promieniu 60 min są co najmniej
 USUAL_NIGHTS = 3            # 3 noce z historii
-
+ONSET_BIN_NIGHTS = 10       # tryb "best": przedział pory zaśnięcia bierzemy pod uwagę od 10 nocy
 
 @dataclass
 class DurationRange:
@@ -43,7 +43,7 @@ class SleepPlan:
 
 @dataclass
 class SleepWindow:
-    mode: str                       # "wake_time" albo "bedtime"
+    mode: str                       # "wake_time", "bedtime" albo "best"
     duration_range: DurationRange
     latency: int                    # czas zasypiania (min)
     latency_source: str             # "dane" albo "profil"
@@ -179,19 +179,58 @@ def _unusual_onset_note(frame: pd.DataFrame, onset: int) -> str | None:
         return "O tej porze zwykle nie zasypiasz, więc zaśnięcie może potrwać dłużej, niż zakładamy."
     return None
 
+def _best_onset(frame: pd.DataFrame) -> tuple[int | None, str]:
+    # Tryb "best": pora zaśnięcia (minuty od północy) i zdanie, skąd się wzięła.
+    nights = frame[frame["onset_min"].notna() & frame["energy"].notna()]
+    if len(nights) < MIN_NIGHTS_FOR_DATA:
+        return None, "Za mało danych, żeby wskazać Twoją porę zaśnięcia. Podaj godzinę."
+
+    # Przedziały pory zaśnięcia co 30 min; tylko te z co najmniej 10 nocami.
+    bins = (nights["onset_min"] // BIN_MIN * BIN_MIN).astype(int)
+    stats = nights.groupby(bins)["energy"].agg(["mean", "count"])
+    stats = stats[stats["count"] >= ONSET_BIN_NIGHTS]
+
+    if not stats.empty:
+        best = int(stats["mean"].idxmax())
+        in_best = nights.loc[bins == best, "energy"]
+        others = nights.loc[bins != best, "energy"]
+        # Najlepszy przedział tylko przy 3 warunkach wniosków (jak w compare), inaczej to szum.
+        if len(others) >= MIN_NIGHTS:
+            ci_low, ci_high = bootstrap_ci(in_best, others)
+            diff = in_best.mean() - others.mean()
+            if ci_low > 0 and diff >= MID["energy"]:
+                onset = best + BIN_MIN // 2 + 12 * 60    # środek przedziału, z osi od 12:00 na zegar
+                best_energy = f"{in_best.mean():.1f}".replace(".", ",")
+                other_energy = f"{others.mean():.1f}".replace(".", ",")
+                return onset, (
+                    f"Gdy zasypiasz o tej porze, rano masz wyraźnie więcej energii "
+                    f"({best_energy} wobec {other_energy})."
+                )
+
+
+    # Brak wyraźnie lepszej pory: zwykła pora (mediana) zaokrąglona do 15 min.
+    typical = round(nights["onset_min"].median() / 15) * 15 + 12 * 60
+    return typical, "Nie widać, żeby inna pora zaśnięcia dawała Ci więcej energii, więc bierzemy Twoją zwykłą porę."
+
 
 def calculate_sleep_window(
-    frame: pd.DataFrame, age: int, profile_latency: int, mode: str, time: str, goes_to_bed: bool = False,
+    frame: pd.DataFrame, age: int, profile_latency: int, mode: str,
+    time: str | None = None, goes_to_bed: bool = False,
 ) -> SleepWindow:
     # Kalkulator snu: zakres długości -> opcje z cykli -> ocena opcji -> godziny.
     duration = duration_range(frame, age)
     options = rate_options(frame, sleep_options(duration.low, duration.high), duration.source)
     latency, latency_source = typical_latency(frame, profile_latency)
     notes = [duration.note] if duration.note else []
-    given = _to_minutes(time)
 
-    if mode == "wake_time":
+    if mode == "best":
+        # Nie znamy żadnej godziny: porę zaśnięcia wskazują dane.
+        onset, reason = _best_onset(frame)
+        notes.append(reason)
+        plans = [] if onset is None else [_plan(onset, latency, option) for option in options]
+    elif mode == "wake_time":
         # Znamy porę zaśnięcia (albo położenia się) i szukamy budzika.
+        given = _to_minutes(time)
         onset = given + latency if goes_to_bed else given
         plans = [_plan(onset, latency, option) for option in options]
         unusual = _unusual_onset_note(frame, onset)
@@ -199,6 +238,8 @@ def calculate_sleep_window(
             notes.append(unusual)
     else:
         # mode == "bedtime": znamy porę pobudki i liczymy wstecz.
+        given = _to_minutes(time)
         plans = [_plan(given - option.duration, latency, option) for option in options]
 
     return SleepWindow(mode, duration, latency, latency_source, plans, notes)
+
