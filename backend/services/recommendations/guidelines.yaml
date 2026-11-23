@@ -1,0 +1,111 @@
+# Zalecenia ogólne (higiena snu): treść dla użytkownika i źródła.
+# Kiedy które zalecenie pokazać, decyduje guidelines.py.
+# verified: true = autor przeczytał źródła i zatwierdził treść (2026-11-23).
+# Do odpowiedzi trafiają tylko zalecenia z verified: true.
+
+- id: sleep_duration_age
+  title: Ile snu potrzebuje dorosły
+  text: >-
+    Dorosłym (18–64 lata) zaleca się 7–9 godzin snu na dobę, a osobom w wieku
+    65 lat i więcej 7–8 godzin. To zakresy dla osób zdrowych; zapotrzebowanie
+    na sen różni się między ludźmi.
+  sources:
+    - "Hirshkowitz M. i in. (2015), Sleep Health 1(1):40–43, doi:10.1016/j.sleh.2014.12.010"
+  verified: true
+
+- id: regular_schedule
+  title: Stałe pory snu
+  text: >-
+    Staraj się zasypiać i budzić o podobnych porach każdego dnia. Według ekspertów
+    National Sleep Foundation regularny rytm snu jest ważny dla zdrowia i codziennego
+    funkcjonowania, a gdy w tygodniu śpisz za krótko, odsypianie w weekend może być
+    korzystne.
+  sources:
+    - "Sletten T. L. i in. (2023), Sleep Health 9(6):801–820, doi:10.1016/j.sleh.2023.07.016"
+  verified: true
+
+- id: caffeine_timing
+  title: Kofeina a sen
+  text: >-
+    Kofeina może pogarszać sen, tym bardziej, im większa dawka i im bliżej snu ją
+    przyjmiesz. Według metaanalizy badań filiżankę kawy najlepiej wypić najpóźniej
+    ok. 9 godzin przed snem, a duże dawki kofeiny mogą szkodzić nawet 12 godzin
+    wcześniej. Wpływu kofeiny na sen nie zawsze się zauważa.
+  sources:
+    - "Gardiner C. i in. (2023), Sleep Medicine Reviews 69:101764, doi:10.1016/j.smrv.2023.101764"
+    - "Gardiner C. L. i in. (2025), Sleep 48(4):zsae230, doi:10.1093/sleep/zsae230"
+  verified: true
+
+- id: alcohol_evening
+  title: Alkohol wieczorem
+  text: >-
+    Alkohol nie jest dobrym sposobem na lepszy sen. Już ok. 2 standardowe porcje
+    wieczorem zaburzają sen REM (opóźniają go i skracają), a im więcej alkoholu,
+    tym silniej. Szybsze zasypianie pojawia się dopiero po dużych dawkach (ok. 5
+    porcji), i to kosztem jeszcze większych zaburzeń snu REM.
+  sources:
+    - "Gardiner C. i in. (2025), Sleep Medicine Reviews 80:102030, doi:10.1016/j.smrv.2024.102030"
+  verified: true
+
+- id: screens_evening
+  title: Ekrany przed snem
+  text: >-
+    Korzystanie z ekranów w godzinie przed snem wiąże się u dorosłych z krótszym
+    i gorzej ocenianym snem: w badaniu ponad 120 tys. osób codzienne korzystanie
+    z ekranu przed snem wiązało się ze snem krótszym o ok. 8 minut w dni robocze
+    i z częstszą słabą jakością snu. Eksperci nie są jednak zgodni, czy ekrany
+    szkodzą snowi dorosłych, dlatego warto sprawdzić, czy u Ciebie ekrany przed
+    snem idą w parze z gorszym snem.
+  sources:
+    - "Zhong C. i in. (2025), JAMA Network Open 8(3):e252493, doi:10.1001/jamanetworkopen.2025.2493"
+    - "Hartstein L. E. i in. (2024), Sleep Health 10(4):373–384, doi:10.1016/j.sleh.2024.05.001"
+  verified: true
+
+- id: nap_length
+  title: Długość drzemki
+  text: >-
+    Jeśli potrzebujesz drzemki, wybierz krótką, do ok. 20 minut. W badaniu po
+    skróconej nocy 10-minutowa drzemka od razu poprawiała czujność i samopoczucie,
+    po 20-minutowej poprawa pojawiała się po ok. pół godzinie, a po 30-minutowej
+    najpierw występowało przejściowe otępienie.
+  sources:
+    - "Brooks A., Lack L. (2006), Sleep 29(6):831–840, doi:10.1093/sleep/29.6.831"
+  verified: true
+
+- id: stress_evening
+  title: Stres przed snem
+  text: >-
+    Stres i zamartwianie się mogą utrudniać zasypianie i utrzymanie snu, a sen
+    niektórych osób jest na stres szczególnie wrażliwy. Wieczorem można spróbować
+    technik relaksacyjnych, np. ćwiczeń oddechowych lub rozluźniania mięśni; to
+    jedna z metod zalecanych (warunkowo) w leczeniu przewlekłej bezsenności.
+  sources:
+    - "Kalmbach D. A. i in. (2018), Journal of Sleep Research 27(6):e12710, doi:10.1111/jsr.12710"
+    - "Edinger J. D. i in. (2021), Journal of Clinical Sleep Medicine 17(2):255–262, doi:10.5664/jcsm.8986"
+  verified: true
+
+- id: sleep_cycles
+  title: Cykle snu i budzik
+  text: >-
+    Sen składa się z cykli trwających zwykle ok. 90 minut (w dużym badaniu
+    laboratoryjnym mediana wyniosła 96 minut), ale długość cyklu wyraźnie różni
+    się między osobami i w ciągu nocy, a pierwszy cykl jest krótszy. Dlatego
+    godziny z kalkulatora, liczone co 90 minut, są tylko przybliżeniem. Otępienie
+    tuż po przebudzeniu (bezwładność senna) jest zwykle silniejsze po wybudzeniu
+    z głębokiego snu i po niewyspaniu, a bez dużego niedoboru snu rzadko trwa
+    dłużej niż 30 minut.
+  sources:
+    - "Cajochen C. i in. (2024), Sleep Health 10(1 Suppl):S52–S62, doi:10.1016/j.sleh.2023.09.002"
+    - "Tassi P., Muzet A. (2000), Sleep Medicine Reviews 4(4):341–353, doi:10.1053/smrv.2000.0098"
+  verified: true
+
+- id: see_doctor
+  title: Kiedy porozmawiać z lekarzem
+  text: >-
+    Jeśli trudności z zasypianiem lub utrzymaniem snu pojawiają się co najmniej
+    3 razy w tygodniu od co najmniej 3 miesięcy i utrudniają Ci funkcjonowanie
+    w ciągu dnia, warto porozmawiać z lekarzem; zalecaną metodą leczenia
+    przewlekłej bezsenności jest terapia poznawczo-behawioralna (CBT-I).
+  sources:
+    - "Riemann D. i in. (2023), Journal of Sleep Research 32(6):e14035, doi:10.1111/jsr.14035"
+  verified: true

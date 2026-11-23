@@ -145,6 +145,21 @@ def regularity(frame: pd.DataFrame, today: date, days) -> dict:
     std = onsets.std() if len(onsets) >= 2 else None
     return {"nights": len(onsets), "onset_std_min": None if std is None else float(std)}
 
+
+def summary(frame: pd.DataFrame, today: date, days) -> dict:
+    # Średnie z nocy z ostatnich `days` dni: długość snu (min), jakość i energia rano.
+    recent = _last_days(frame, today, days)
+    nights = recent[recent["has_night"]]
+    if nights.empty:
+        return {"nights": 0, "duration": None, "quality": None, "energy": None}
+    return {
+        "nights": len(nights),
+        "duration": float(nights["duration"].mean()),
+        "quality": float(nights["quality"].mean()),
+        "energy": float(nights["energy"].mean()),
+    }
+
+
 def compare_all(frame: pd.DataFrame, today: date) -> list[Comparison]:
     # Wszystkie pary czynnik -> wynik (krótki sen tylko z energią i oceną dnia).
     results = []
