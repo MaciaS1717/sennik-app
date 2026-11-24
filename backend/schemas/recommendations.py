@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class DurationRangeRead(BaseModel):
@@ -81,3 +81,22 @@ class HabitRowRead(BaseModel):
 
 class HabitsTableResponse(BaseModel):
     rows: list[HabitRowRead]
+
+
+class ChatTurn(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str = Field(max_length=1000)           # jedna wcześniejsza wypowiedź
+
+
+class ChatRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=500)
+    history: list[ChatTurn] = Field(default_factory=list, max_length=6)   # tylko dla klasyfikatora
+
+
+class ChatResponse(BaseModel):
+    answer: str
+    intent: str | None                              # None, gdy klasyfikator nie zadziałał
+    level: Literal["start", "osobisty"] | None
+    evidence: list[str]                             # zdania faktów: nasze, nie z LLM
+    disclaimer: str
+    source: Literal["llm", "template", "fixed", "unavailable"]

@@ -37,7 +37,7 @@ MID = {
     "day_rating": 0.5,
 }
 
-# Ustawienia metody porównań (plan v3, 4.2).
+# Ustawienia metody porównań.
 MIN_NIGHTS = 5              # najmniej nocy w każdej grupie
 WINDOWS = (30, 90, "all")   # okna czasu sprawdzane po kolei
 N_BOOT = 2000               # liczba losowań w bootstrapie
@@ -146,17 +146,23 @@ def regularity(frame: pd.DataFrame, today: date, days) -> dict:
     return {"nights": len(onsets), "onset_std_min": None if std is None else float(std)}
 
 
+def _mean(values: pd.Series) -> float | None:
+    # Średnia bez pustych wartości; None, gdy nie ma żadnej (zamiast NaN).
+    values = values.dropna()
+    return float(values.mean()) if len(values) else None
+
+
 def summary(frame: pd.DataFrame, today: date, days) -> dict:
-    # Średnie z nocy z ostatnich `days` dni: długość snu (min), jakość i energia rano.
+    # Średnie z ostatnich `days` dni: noce (długość, jakość, energia, wybudzenia) i ocena dnia.
     recent = _last_days(frame, today, days)
     nights = recent[recent["has_night"]]
-    if nights.empty:
-        return {"nights": 0, "duration": None, "quality": None, "energy": None}
     return {
         "nights": len(nights),
-        "duration": float(nights["duration"].mean()),
-        "quality": float(nights["quality"].mean()),
-        "energy": float(nights["energy"].mean()),
+        "duration": _mean(nights["duration"]),
+        "quality": _mean(nights["quality"]),
+        "energy": _mean(nights["energy"]),
+        "awakenings": _mean(nights["awakenings"]),
+        "day_rating": _mean(recent["day_rating"]),
     }
 
 

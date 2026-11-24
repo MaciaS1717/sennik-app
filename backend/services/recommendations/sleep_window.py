@@ -221,6 +221,11 @@ def calculate_sleep_window(
     duration = duration_range(frame, age)
     options = rate_options(frame, sleep_options(duration.low, duration.high), duration.source)
     latency, latency_source = typical_latency(frame, profile_latency)
+    # Uwaga „zakres schodzi poniżej 7 h” tylko przy krótszej opcji z oceną "dobra";
+    # inaczej przeczyłaby ocenie "slabsza" albo mówiła o opcji, której nie proponujemy.
+    short_good = any(o.duration < RECOMMENDED_MIN and o.rating == "dobra" for o in options)
+    if duration.source == "dane" and not short_good:
+        duration.note = None
     notes = [duration.note] if duration.note else []
 
     if mode == "best":

@@ -6,7 +6,7 @@ import pandas as pd
 from .compare import (
     FACTORS, Comparison, compare_all, data_level, habit_rates, regularity, summary, top_findings,
 )
-from .guidelines import IRREGULAR_ONSET_MIN, Situation, matching_guidelines
+from .guidelines import IRREGULAR_ONSET_MIN, Situation, load_guidelines, matching_guidelines
 
 # Początek zdania: w jakie dni (czynnik).
 FACTOR_PHRASES = {
@@ -31,7 +31,7 @@ OUTCOME_PHRASES = {
 }
 
 MINUTE_OUTCOMES = {"latency_extra", "duration"}     # wyniki w minutach; pozostałe w punktach lub sztukach
-WINDOW_LABELS = {30: "ostatnie 30 dni", 90: "ostatnie 90 dni", "all": "cała historia"}
+WINDOW_LABELS = {7: "ostatnie 7 dni", 30: "ostatnie 30 dni", 90: "ostatnie 90 dni", "all": "cała historia"}
 SUMMARY_DAYS = 30          # częstości nawyków i regularność z ostatnich 30 dni
 
 
@@ -107,6 +107,7 @@ START_NOTE = (
     "Masz jeszcze mało raportów, więc na razie pokazujemy głównie zalecenia ogólne. "
     "Osobiste wnioski pojawią się od 7 nocy z raportem."
 )
+BASIC_GUIDELINES = {"sleep_duration_age", "regular_schedule"}   # dla nowego konta bez dopasowań
 
 
 @dataclass
@@ -159,8 +160,12 @@ def build_insights(frame: pd.DataFrame, today: date, age: int) -> Insights:
         onset_std_min=regular["onset_std_min"],
         age=age,
     )
+    guidelines = matching_guidelines(situation)
+    if level == "start" and not guidelines:
+        # Notka trybu start obiecuje zalecenia ogólne, więc nowe konto bez dopasowań dostaje podstawowe.
+        guidelines = [g for g in load_guidelines() if g["id"] in BASIC_GUIDELINES]
     nights = int(frame["has_night"].sum())
-    return Insights(level, nights, note, cards, facts, matching_guidelines(situation))
+    return Insights(level, nights, note, cards, facts, guidelines)
 
 
 @dataclass
