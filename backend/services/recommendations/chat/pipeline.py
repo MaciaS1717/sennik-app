@@ -45,6 +45,8 @@ def _compose_checked(llm, question: str, sheet: FactSheet) -> tuple[str, str]:
 
 def _reply(message: str, history: list[ChatTurn], frame: pd.DataFrame, user: User, today: date, llm) -> ChatAnswer:
     # Klasyfikacja -> stała odmowa albo fakty -> redakcja z walidacją.
+    if llm is None:             # brak LLM_API_KEY w .env: czat wyłączony
+        return ChatAnswer(UNAVAILABLE_ANSWER, None, None, [], DISCLAIMER, "unavailable")
     try:
         intent = llm.classify(message, history)
     except Exception:           # timeout, brak klucza, zły JSON: bez klasyfikacji nie zgadujemy

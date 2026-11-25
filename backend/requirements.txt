@@ -25,3 +25,5 @@ pandas
 numpy
 pyyaml
 
+openai==3.59.0
+

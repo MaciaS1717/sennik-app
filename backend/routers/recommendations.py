@@ -8,7 +8,11 @@ from sqlmodel import Session
 from ..auth.auth_router import get_current_user
 from ..database import get_session
 from ..models import User
-from ..schemas.recommendations import HabitsTableResponse, InsightsResponse, SleepWindowResponse
+from ..schemas.recommendations import (
+    ChatRequest, ChatResponse, HabitsTableResponse, InsightsResponse, SleepWindowResponse,
+)
+from ..services.recommendations.chat.llm import get_llm_client
+from ..services.recommendations.chat.pipeline import answer_chat
 from ..services.recommendations.frame import load_frame
 from ..services.recommendations.insights import build_insights, habits_table
 from ..services.recommendations.sleep_window import calculate_sleep_window
@@ -61,3 +65,14 @@ def read_sleep_window(
         goes_to_bed=time_type == "goes_to_bed",
     )
     return SleepWindowResponse(**asdict(window))
+
+
+@router.post("/chat", response_model=ChatResponse)
+def chat(
+    request: ChatRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_session),
+) -> ChatResponse:
+    frame = load_frame(db, current_user)
+    reply = answer_chat(request.message, request.history, frame, current_user, date.today(), get_llm_client())
+    return ChatResponse(**asdict(reply))

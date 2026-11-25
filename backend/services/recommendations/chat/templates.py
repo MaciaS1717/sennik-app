@@ -14,7 +14,7 @@ OFF_TOPIC_ANSWER = (
 UNAVAILABLE_ANSWER = "Asystent jest chwilowo niedostępny. Skorzystaj z sekcji Wnioski albo z Kalkulatora snu."
 DISCLAIMER = (
     "Sennik nie jest narzędziem medycznym. Odpowiedzi opierają się na Twoich raportach "
-    "i ogólnych zaleceniach i nie są diagnozą."
+    "i ogólnych zaleceniach. Nie są diagnozą."
 )
 
 
