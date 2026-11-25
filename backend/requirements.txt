@@ -18,3 +18,12 @@ python-multipart
 
 passlib[bcrypt]
 bcrypt<4
+
+pytest
+
+pandas
+numpy
+pyyaml
+
+openai==3.59.0
+

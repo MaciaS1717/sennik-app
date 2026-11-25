@@ -33,6 +33,7 @@ def get_user_sleep_statistics(
             DailyLog.user_id == user_id,
             DailyLog.date >= date_from,
             DailyLog.date <= date_to,
+            DailyLog.date <= date.today(), #brak wierszy z przyszłą datą (tych niedokończonych)
         )
         .order_by(DailyLog.date.asc())
     )

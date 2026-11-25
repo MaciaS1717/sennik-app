@@ -19,6 +19,11 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
 
+    # Czat: klucz OpenAI tylko w backend/.env. Pusty klucz = czat odpowiada „asystent niedostępny”.
+    llm_api_key: str = ""
+    llm_model: str = "gpt-6-luna"
+    llm_timeout_s: float = 20
+
     model_config = SettingsConfigDict(
          env_file=BASE_DIR / ".env",
         env_file_encoding="utf-8",
